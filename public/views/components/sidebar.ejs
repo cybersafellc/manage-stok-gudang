@@ -1,0 +1,83 @@
+<ul
+   class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion"
+   id="accordionSidebar"
+   >
+   <!-- Sidebar - Brand -->
+   <a
+      class="sidebar-brand d-flex align-items-center justify-content-center"
+      href="/dashboard"
+      >
+      <div class="sidebar-brand-icon">
+         <i class="fas fa-warehouse"></i>
+      </div>
+      <div class="sidebar-brand-text mx-3">
+         MONITORING <br />
+         STOCK
+      </div>
+   </a>
+   <!-- Divider -->
+   <hr class="sidebar-divider my-0" />
+   <!-- Nav Item - Dashboard -->
+   <li class="nav-item">
+      <a class="nav-link" href="/dashboard">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span></a
+         >
+   </li>
+   <!-- Divider -->
+   <hr class="sidebar-divider" />
+   <!-- Heading -->
+   <div class="sidebar-heading">Menu</div>
+   <!-- Nav Item - Pages Collapse Menu -->
+ 
+   <li class="nav-item">
+      <a class="nav-link" href="/kategori-barang">
+      <i class="fas fa-fw fa-table"></i>
+      <span>Kategori Barang</span>
+      </a>
+   </li>
+   <li class="nav-item">
+      <a class="nav-link" href="/materials">
+      <i class="fas fa-boxes"></i>
+      <span>Material</span>
+      </a>
+   </li>
+
+   <li class="nav-item">
+      <a class="nav-link" href="/import-csv-shp">
+      <i class="fas fa-fw fa-wrench"></i>
+      <span>Import CSV SAP</span>
+      </a>
+   </li>
+
+   <li class="nav-item">
+      <a class="nav-link" href="/history-scan">
+   <i class="fas fa-fw fa-clock"></i>
+      <span>Scan History</span>
+      </a>
+   </li>
+
+   <%if(data.user.role == "admin"){%>
+   <li class="nav-item">
+      <a class="nav-link" href="/kelola-user">
+      <i class="fas fa-fw fa-user"></i>
+      <span>Kelola User</span>
+      </a>
+   </li>
+   <%}%>
+   <%if(data.user.role == "admin"){%>
+   <li class="nav-item">
+      <a class="nav-link" href="/settings">
+      <i class="fas fa-fw fa-cog"></i>
+      <span>Settings</span>
+      </a>
+   </li>
+   <%}%>
+   <!-- Nav Item - Tables -->
+   <!-- Divider -->
+   <hr class="sidebar-divider d-none d-md-block" />
+   <!-- Sidebar Toggler (Sidebar) -->
+   <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+   </div>
+</ul>

@@ -1,0 +1,90 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model users {
+  id         String   @id @db.VarChar(100)
+  username   String   @db.VarChar(255) @unique
+  password   String   @db.VarChar(255)
+  name       String   @db.VarChar(255)
+  id_karyawan String  @db.VarChar(255) @unique
+  jabatan    String   @db.VarChar(255)
+  role       String   @db.VarChar(255)
+  create_at  DateTime @default(now())
+  update_at  DateTime @updatedAt
+
+  history_upload history_upload[]
+}
+
+model category {
+  id        String     @id @db.VarChar(100)
+  name      String     @db.VarChar(255) @unique
+  category_id      String     @db.VarChar(25) @unique
+  create_at DateTime   @default(now())
+  update_at DateTime   @updatedAt
+
+  materials materials[]
+}
+
+model materials {
+  id                  String   @id @db.VarChar(100)
+  category_id         String   @db.VarChar(100)
+  material_id         String      @unique
+  material_description String  @db.Text
+  satuan              String   @db.VarChar(75)
+  jumlah              Float
+  barcode             String   @db.Text
+  create_at           DateTime @default(now())
+  update_at           DateTime @updatedAt
+
+  category category @relation(fields: [category_id], references: [id])
+  details_upload details_upload[]
+  scan_history scan_history[]
+}
+
+model history_upload {
+  id         String   @id @db.VarChar(100)
+  keterangan String   @db.Text
+  user_id    String   @db.VarChar(100)
+  create_at  DateTime @default(now())
+  update_at  DateTime @updatedAt
+
+  user users @relation(fields: [user_id], references: [id])
+  details_upload details_upload[]
+}
+
+model details_upload {
+  id               String   @id @db.VarChar(100)
+  history_upload_id String  @db.VarChar(100)
+  materials_id     String   @db.VarChar(100)
+  jumlah           Float
+  create_at        DateTime @default(now())
+  update_at        DateTime @updatedAt
+
+  materials materials @relation(fields: [materials_id], references: [id])
+  history_upload history_upload @relation(fields: [history_upload_id], references: [id])
+}
+
+model settings {
+  id        String   @id @db.VarChar(100)
+  name      String   @db.Text
+  status    Boolean
+  create_at DateTime @default(now())
+  update_at DateTime @updatedAt
+}
+
+model scan_history {
+  id         String   @id @db.VarChar(100)
+  ip_address String   @db.VarChar(255)
+  materials_id String @db.VarChar(100)
+  create_at  DateTime @default(now())
+  update_at  DateTime @updatedAt
+
+  materials materials @relation(fields: [materials_id], references: [id])
+}
+

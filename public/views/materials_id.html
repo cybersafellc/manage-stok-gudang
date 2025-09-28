@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title><%= message %></title>
+
+    <!-- Custom fonts for this template-->
+    <link
+      href="/vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template-->
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet" />
+  </head>
+
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <nav
+            class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+          >
+            <span class="font-weight-bold text-danger"
+              ><%= data.material.material_description %></span
+            >
+          </nav>
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-4 text-gray-800">Detail Barang</h1>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card shadow mb-4">
+                  <div class="card-body">
+                    <div class="row">
+                      <!-- Detail Barang -->
+                      <div class="col-md-8">
+                        <p>
+                          <strong>Kategori :</strong> <%=
+                          data.material.category.name %>
+                        </p>
+                        <p>
+                          <strong>ID Material :</strong> <%=
+                          data.material.category.category_id %><%=
+                          data.material.material_id %>
+                        </p>
+
+                        <p>
+                          <strong>Nama Barang :</strong> <%=
+                          data.material.material_description %>
+                        </p>
+                        <p>
+                          <strong>Jumlah Stok Tersedia :</strong>
+                          <span class="text-success"
+                            ><%= data.material.jumlah %> <%=
+                            data.material.satuan %></span
+                          >
+                        </p>
+                        <p><strong>Deskripsi :</strong> -</p>
+                        <p><strong>Lokasi Rak :</strong> -</p>
+                      </div>
+
+                      <!-- Gambar Barang -->
+                      <div class="col-md-4 text-center">
+                        <img
+                          src="<%= data.material.barcode  %>"
+                          alt="Urea"
+                          class="img-fluid"
+                          style="max-height: 200px"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Tombol Aksi -->
+                  <div class="card-footer text-right">
+                    <a class="btn btn-danger btn-sm" href="/materials">
+                      <i class="fas fa-arrow-left"></i> Kembali
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="text-center my-auto">
+              <span
+                >© 2025 Minamas Plantation - PT. Aneka Inti Persada. All rights
+                reserved.</span
+              >
+            </div>
+          </div>
+        </footer>
+        <!-- End of Footer -->
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin-2.min.js"></script>
+  </body>
+</html>
