@@ -49,7 +49,7 @@ CREATE TABLE `details_upload` (
 
 CREATE TABLE `settings` (
   `id` varchar(100) PRIMARY KEY,
-  `name` text UNIQUE,
+  `name` varchar(255) UNIQUE,
   `status` boolean,
   `create_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
