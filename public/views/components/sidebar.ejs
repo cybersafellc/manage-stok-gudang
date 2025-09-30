@@ -30,12 +30,24 @@
    <div class="sidebar-heading">Menu</div>
    <!-- Nav Item - Pages Collapse Menu -->
  
+   
+   
+   <%if(data.user.role == "admin"){%>
    <li class="nav-item">
       <a class="nav-link" href="/kategori-barang">
       <i class="fas fa-fw fa-table"></i>
       <span>Kategori Barang</span>
       </a>
    </li>
+   <%}%>
+   <%if(data.user.role == "admin"){%>
+   <li class="nav-item">
+      <a class="nav-link" href="/kategori-gudang">
+      <i class="fas fa-fw fa-table"></i>
+      <span>Kategori Gudang</span>
+      </a>
+   </li>
+   <%}%>
    <li class="nav-item">
       <a class="nav-link" href="/materials">
       <i class="fas fa-boxes"></i>

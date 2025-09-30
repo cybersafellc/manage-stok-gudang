@@ -12,7 +12,7 @@ model users {
   username   String   @db.VarChar(255) @unique
   password   String   @db.VarChar(255)
   name       String   @db.VarChar(255)
-  id_karyawan String  @db.VarChar(255) @unique
+  sap_id String  @db.VarChar(255) @unique
   jabatan    String   @db.VarChar(255)
   role       String   @db.VarChar(255)
   create_at  DateTime @default(now())
@@ -31,18 +31,32 @@ model category {
   materials materials[]
 }
 
+model valuation_class {
+  id String @id @db.VarChar(100) 
+  valuation_class_id String @db.VarChar(100) @unique
+  valuation_description String @db.VarChar(255)
+  create_at DateTime   @default(now())
+  update_at DateTime   @updatedAt 
+
+  materials materials[]
+}
+
 model materials {
   id                  String   @id @db.VarChar(100)
   category_id         String   @db.VarChar(100)
+  valuation_class_id         String   @db.VarChar(100)
   material_id         String      @unique
   material_description String  @db.Text
   satuan              String   @db.VarChar(75)
   jumlah              Float
+  jumlah_stok_fisik              Float
+  location String @db.VarChar(255)
   barcode             String   @db.Text
   create_at           DateTime @default(now())
   update_at           DateTime @updatedAt
 
   category category @relation(fields: [category_id], references: [id])
+  valuation_class valuation_class @relation(fields: [valuation_class_id], references: [id])
   details_upload details_upload[]
   scan_history scan_history[]
 }

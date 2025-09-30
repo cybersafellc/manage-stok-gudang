@@ -81,6 +81,27 @@ async function kategoriBarang(request) {
   );
 }
 
+async function kategoriGudang(request) {
+  const result = await validation(pageValidation.kategoriGudang, request);
+  const user = await database.users.findUnique({
+    where: {
+      id: result.id,
+    },
+  });
+  const kategori = await database.valuation_class.findMany({
+    orderBy: {
+      update_at: "desc",
+    },
+  });
+  return new Response(
+    200,
+    "Kategori Gudang",
+    { user, kategori },
+    "kategori_gudang",
+    false
+  );
+}
+
 async function settings(request) {
   const result = await validation(pageValidation.settings, request);
   const user = await database.users.findUnique({
@@ -105,6 +126,7 @@ async function materials(request) {
     },
     include: {
       category: true,
+      valuation_class: true,
     },
   });
 
@@ -113,10 +135,16 @@ async function materials(request) {
       update_at: "desc",
     },
   });
+
+  const kategori_gudang = await database.valuation_class.findMany({
+    orderBy: {
+      update_at: "desc",
+    },
+  });
   return new Response(
     200,
     "Materials",
-    { user, material, kategori },
+    { user, material, kategori, kategori_gudang },
     "materials",
     false
   );
@@ -132,6 +160,7 @@ async function getById(request) {
     },
     include: {
       category: true,
+      valuation_class: true,
     },
   });
 
@@ -253,4 +282,5 @@ export default {
   importShp,
   importShpDetails,
   scanHistory,
+  kategoriGudang,
 };

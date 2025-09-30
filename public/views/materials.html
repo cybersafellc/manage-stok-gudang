@@ -51,15 +51,7 @@
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-            <p class="mb-4">
-              DataTables is a third party plugin that is used to generate the
-              demo table below. For more information about DataTables, please
-              visit the
-              <a target="_blank" href="https://datatables.net"
-                >official DataTables documentation</a
-              >.
-            </p>
+            <h1 class="h3 mb-3 text-gray-800">Material</h1>
 
             <!-- Form Input Kategori -->
             <div class="card shadow mb-4">
@@ -71,14 +63,14 @@
               <div class="card-body">
                 <form id="save-materials">
                   <div class="form-group">
-                    <label for="name">Kategori</label>
+                    <label for="name">Kategori Barang</label>
                     <select
                       class="form-control"
                       id="category_id"
                       name="category_id"
                       onchange="handleChangekategori()"
                     >
-                      <option>Pilih Kategori</option>
+                      <option>Pilih Kategori Barang</option>
                       <% data.kategori.forEach(e => {%>
                       <option value="<%= e.id %>">
                         <%= e.category_id %> - <%= e.name %>
@@ -107,6 +99,22 @@
                     </div>
                   </div>
                   <div class="form-group">
+                    <label for="name">Kategori Gudang</label>
+                    <select
+                      class="form-control"
+                      id="kategori_gudang_id"
+                      name="kategori_gudang_id"
+                    >
+                      <option>Pilih Kategori Gudang</option>
+                      <% data.kategori_gudang.forEach(e => {%>
+                      <option value="<%= e.id %>">
+                        <%= e.valuation_class_id %> - <%=
+                        e.valuation_description %>
+                      </option>
+                      <% }); %>
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label for="name">Material Description</label>
                     <input
                       type="text"
@@ -124,6 +132,16 @@
                       id="satuan"
                       name="satuan"
                       placeholder="Masukkan Satuan"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="location">Lokasi Rak</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="location"
+                      name="location"
+                      placeholder="Masukkan Lokasi Rak"
                     />
                   </div>
 
@@ -150,12 +168,15 @@
                     <thead>
                       <tr>
                         <th>No</th>
-                        <th>Kategori</th>
+                        <th>Kategori Barang</th>
+                        <th>Kategori Gudang</th>
                         <th>ID Material</th>
                         <th>Material Description</th>
+                        <th>Jumlah (SAP*)</th>
+                        <th>Jumlah Stok Fisik</th>
                         <th>Satuan</th>
-                        <th>Jumlah</th>
                         <th>Barcode</th>
+                        <th>Lokasi Rak</th>
                         <th>Tanggal</th>
                         <th>Aksi</th>
                       </tr>
@@ -166,21 +187,24 @@
                       <tr>
                         <td><%= c %></td>
                         <td><%=e.category.name%></td>
+                        <td><%=e.valuation_class.valuation_description%></td>
                         <td>
                           <a href="/materials/<%= e.id %>"
                             ><%=e.category.category_id%><%=e.material_id%></a
                           >
                         </td>
                         <td><%=e.material_description%></td>
-                        <td><%=e.satuan%></td>
                         <td><%=e.jumlah%></td>
+                        <td><%=e.jumlah_stok_fisik%></td>
+                        <td><%=e.satuan%></td>
+
                         <td><a href="<%=e.barcode%>">View Barcode</a></td>
+                        <td><%=e.location%></td>
                         <td><%= new Date(e.update_at).toLocaleString() %></td>
                         <td>
                           <button
                             class="btn btn-warning"
-                            disabled
-                            onclick="edit('<%=e.id%>','<%=e.material_description%>' ,'<%=e.category_id%>')"
+                            onclick="edit('<%=e.id%>','<%=e.category.id%>' ,'<%=e.category.name%>' ,'<%=e.material_id%>', '<%=e.valuation_class.id%>','<%=e.valuation_class.valuation_description%>', '<%=e.material_description%>', '<%=e.jumlah%>', '<%=e.jumlah_stok_fisik%>', '<%=e.satuan%>', '<%=e.location%>')"
                           >
                             Edit
                           </button>
@@ -328,38 +352,151 @@
           );
         } catch (error) {}
       }
-      async function edit(id, name, category_id) {
+      async function edit(
+        id,
+        categoryId,
+        categoryName,
+        material_id,
+        valuation_classId,
+        valuation_className,
+        material_description,
+        jumlah,
+        jumlah_stok_fisik,
+        satuan,
+        location
+      ) {
         alertify.confirm(
           "Edit Data",
           `
-            <form id="editForm">
-            <div class="form-group">
-                <label>Nama:</label>
-                <input type="text" id="ediName" value="${name}" class="ajs-input"/>
-            </div>
-            <div class="form-group">
-                <label>Kode Kategori:</label>
-                <input type="number" id="editCateogry_id" value="${category_id}" class="ajs-input"/>
-            </div>
-            </form>
+             <div class="card-body">
+                <form id="edit-materials">
+                  <div class="form-group">
+                    <label for="category_id_edit">Kategori Barang</label>
+                    <select
+                      class="form-control"
+                      id="category_id_edit"
+                      name="category_id_edit"
+                    >
+                      <option value="${categoryId}">${categoryName}</option>
+                      <% data.kategori.forEach(e => {%>
+                      <option value="<%= e.id %>">
+                        <%= e.category_id %> - <%= e.name %>
+                      </option>
+                      <% }); %>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="material_id_edit">ID Material</label>
+                    <div class="d-flex justify-content-start">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="material_id_edit"
+                        name="material_id_edit"
+                        placeholder="Masukkan ID Material"
+                        value="${material_id}"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="kategori_gudang_id_edit">Kategori Gudang</label>
+                    <select
+                      class="form-control"
+                      id="kategori_gudang_id_edit"
+                      name="kategori_gudang_id_edit"
+                    >
+                      <option value="${valuation_classId}">${valuation_className}</option>
+                      <% data.kategori_gudang.forEach(e => {%>
+                      <option value="<%= e.id %>">
+                        <%= e.valuation_class_id %> - <%=
+                        e.valuation_description %>
+                      </option>
+                      <% }); %>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="material_description_edit">Material Description</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="material_description_edit"
+                      name="material_description_edit"
+                      placeholder="Masukkan Material Description"
+                      value="${material_description}"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="jumlah_edit">Jumlah (SAP*)</label>
+                    <div class="d-flex justify-content-start">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="jumlah_edit"
+                        name="jumlah_edit"
+                        placeholder="Jumlah"
+                        value="${jumlah}"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="jumlah_stok_fisik_edit">Jumlah Stok Fisik</label>
+                    <div class="d-flex justify-content-start">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="jumlah_stok_fisik_edit"
+                        name="jumlah_stok_fisik_edit"
+                        placeholder="Jumlah"
+                        value="${jumlah_stok_fisik}"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="satuan_edit">Satuan</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="satuan_edit"
+                      name="satuan_edit"
+                      placeholder="Masukkan Satuan"
+                      value="${satuan}"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="location_edit">Lokasi Rak</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="location_edit"
+                      name="location_edit"
+                      placeholder="Masukkan Lokasi"
+                      value="${location}"
+                    />
+                  </div>
+                </form>
+              </div>
       `,
           async function () {
             try {
-              const newName = document.getElementById("ediName").value;
-              const newStatus =
-                document.getElementById("editCateogry_id").value;
-
-              const response = await fetch("/api/kategori", {
+              const data = {
+                id: id,
+                category_id: $("#category_id_edit").val(),
+                material_id: $("#material_id_edit").val(),
+                valuation_class_id: $("#kategori_gudang_id_edit").val(),
+                material_description: $("#material_description_edit").val(),
+                jumlah: $("#jumlah_edit").val(),
+                jumlah_stok_fisik: $("#jumlah_stok_fisik_edit").val(),
+                satuan: $("#satuan_edit").val(),
+                location: $("#location_edit").val(),
+              };
+              console.log(data);
+              const response = await fetch("/api/materials", {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
                   Accept: "application/json",
                 },
-                body: JSON.stringify({
-                  id: id,
-                  name: newName,
-                  category_id: newStatus,
-                }),
+                body: JSON.stringify(data),
               });
 
               const resJson = await response.json();
@@ -372,6 +509,19 @@
             }
           },
           function () {
+            const data = {
+              id: id,
+              category_id: $("#category_id_edit").val(undefined),
+              material_id: $("#material_id_edit").val(undefined),
+              valuation_class_id: $("#kategori_gudang_id_edit").val(undefined),
+              material_description: $("#material_description_edit").val(
+                undefined
+              ),
+              jumlah: $("#jumlah_edit").val(undefined),
+              jumlah_stok_fisik: $("#jumlah_stok_fisik_edit").val(undefined),
+              satuan: $("#satuan_edit").val(undefined),
+              location: $("#location_edit").val(undefined),
+            };
             alertify.error("Cancel");
           }
         );
@@ -383,9 +533,11 @@
             const data = {
               material_description: e.target.material_description.value,
               category_id: e.target.category_id.value,
+              valuation_class_id: e.target.kategori_gudang_id.value,
               kode_kategori: e.target.kode_kategori.value,
               material_id: e.target.material_id.value,
               satuan: e.target.satuan.value,
+              location: e.target.location.value,
             };
 
             for (const key in data) {

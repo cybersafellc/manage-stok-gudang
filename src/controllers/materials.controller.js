@@ -18,4 +18,22 @@ async function deletes(req, res, next) {
   }
 }
 
-export default { create, deletes };
+async function update(req, res, next) {
+  try {
+    const response = await materialsService.update(req.body);
+    res.status(response.status).json(response).end();
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function publicUpdate(req, res, next) {
+  try {
+    const response = await materialsService.publicUpdate(req.body);
+    res.status(response.status).json(response).end();
+  } catch (error) {
+    next(error);
+  }
+}
+
+export default { create, deletes, update, publicUpdate };

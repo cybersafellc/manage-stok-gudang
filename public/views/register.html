@@ -49,6 +49,17 @@
                 </div>
                 <form class="user" id="form-submit">
                   <div class="form-group row">
+                    <div class="col-sm-12 mb-3 mb-sm-0">
+                      <input
+                        type="text"
+                        class="form-control form-control-user"
+                        id="sap_id"
+                        name="sap_id"
+                        placeholder="SAP ID"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
                       <input
                         type="text"
@@ -97,17 +108,7 @@
                       />
                     </div>
                   </div>
-                  <div class="form-group row">
-                    <div class="col-sm-12 mb-3 mb-sm-0">
-                      <input
-                        type="text"
-                        class="form-control form-control-user"
-                        id="id_karyawan"
-                        name="id_karyawan"
-                        placeholder="ID Karyawan"
-                      />
-                    </div>
-                  </div>
+
                   <div class="form-group row">
                     <div class="col-sm-12 mb-3 mb-sm-0">
                       <input
@@ -128,8 +129,8 @@
                         name="role"
                       >
                         <option>Pilih Role</option>
-                        <option>karyawan</option>
-                        <option>admin</option>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
                       </select>
                     </div>
                   </div>
@@ -180,7 +181,7 @@
               confirm_password: e.target.confirm_password.value,
               nama_depan: e.target.nama_depan.value,
               nama_belakang: e.target.nama_belakang.value,
-              id_karyawan: e.target.id_karyawan.value,
+              sap_id: e.target.sap_id.value,
               jabatan: e.target.jabatan.value,
               role: e.target.role.value,
             };

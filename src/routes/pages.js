@@ -10,7 +10,7 @@ page.get("/settings", authMiddleware.adminRolePages, pageController.settings);
 
 page.get(
   "/kategori-barang",
-  authMiddleware.allRolePages,
+  authMiddleware.adminRolePages,
   pageController.kategoriBarang
 );
 page.get("/materials", authMiddleware.allRolePages, pageController.materials);
@@ -28,6 +28,11 @@ page.get(
   "/history-scan",
   authMiddleware.allRolePages,
   pageController.scanHistory
+);
+page.get(
+  "/kategori-gudang",
+  authMiddleware.adminRolePages,
+  pageController.kategoriGudang
 );
 
 // public pages

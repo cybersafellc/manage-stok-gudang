@@ -51,21 +51,13 @@
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-            <p class="mb-4">
-              DataTables is a third party plugin that is used to generate the
-              demo table below. For more information about DataTables, please
-              visit the
-              <a target="_blank" href="https://datatables.net"
-                >official DataTables documentation</a
-              >.
-            </p>
+            <h1 class="h3 mb-3 text-gray-800">Kategori Material</h1>
 
             <!-- Form Input Kategori -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                  Tambah Kategori
+                  Tambah Kategori Material
                 </h6>
               </div>
               <div class="card-body">
@@ -100,7 +92,7 @@
             <div class="card shadow mb-4">
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                  Daftar Kategori
+                  Daftar Kategori Material
                 </h6>
               </div>
               <div class="card-body">
@@ -125,8 +117,8 @@
                       <% let c = 1 %> <% data.kategori.forEach(e => {%>
                       <tr>
                         <td><%= c %></td>
-                        <td><%=e.name%></td>
                         <td><%=e.category_id%></td>
+                        <td><%=e.name%></td>
                         <td><%= new Date(e.create_at).toLocaleString() %></td>
                         <td>
                           <button

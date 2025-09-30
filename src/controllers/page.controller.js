@@ -118,6 +118,18 @@ async function scanHistory(req, res, next) {
   }
 }
 
+async function kategoriGudang(req, res, next) {
+  try {
+    const response = await pageService.kategoriGudang({
+      id: req.id,
+      role: req.role,
+    });
+    res.status(response.status).render(response.refrence, response);
+  } catch (error) {
+    next(error);
+  }
+}
+
 export default {
   login,
   register,
@@ -129,4 +141,5 @@ export default {
   importShp,
   importShpDetails,
   scanHistory,
+  kategoriGudang,
 };

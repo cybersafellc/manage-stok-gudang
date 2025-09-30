@@ -45,6 +45,11 @@ const scanHistory = Joi.object({
   role: Joi.string().required(),
 });
 
+const kategoriGudang = Joi.object({
+  id: Joi.string().required(),
+  role: Joi.string().required(),
+});
+
 export default {
   login,
   dashboard,
@@ -55,4 +60,5 @@ export default {
   importShp,
   importShpDetails,
   scanHistory,
+  kategoriGudang,
 };
