@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 
 (async () => {
-  const data = (await fs.readFile("db/4400.txt", "utf-8"))
+  const data = (await fs.readFile("db/1600.txt", "utf-8"))
     .trim()
     .split("\n")
     .map((d) => d.trim());
@@ -14,13 +14,15 @@ import fs from "fs/promises";
         Accept: "application/json",
         "Content-Type": "application/json",
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlmMWRiN2Y5LTdjZjktNDE2OS1hMDhmLWJlODM2OGEwNmQ5NyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1OTA3MzQxNCwiZXhwIjoxNzU5MTAyMjE0fQ.8gL7tUMa2C92q6TG8Zy-0DPBagbmiKucTunxnrL8C9g",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNiNTZjOWQzLTBlM2EtNDdkYS05MTE3LThkNzY3NmFjNzI5NiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1OTI2MTkyMCwiZXhwIjoxNzU5MjkwNzIwfQ.fxJ49EnG6raBkVlVDfYXWuz-VfGv8Mbs-Gf4mXfn2qM",
       },
       body: JSON.stringify({
-        category_id: "1166cf43-6137-4239-b718-d68b3627f790",
+        category_id: "d8182b33-845e-4ec3-a721-81e6ecb32d2c",
+        valuation_class_id: "96f63777-cf52-4ba7-8594-1f0f09b49daa",
         material_id: dataArr[0],
         material_description: dataArr[1],
         satuan: dataArr[2],
+        location: "Belum Ditentukan",
       }),
     });
     const resJson = await response.json();
