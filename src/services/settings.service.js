@@ -28,20 +28,25 @@ async function addSettings(request) {
 
 async function editSettings(request) {
   const result = await validation(settingsValidation.editSettings, request);
-  const isAlreadyExist = await database.settings.findUnique({
-    where: {
-      id: result.id,
-    },
-  });
-  if (!isAlreadyExist) throw new ApiError(400, "id settings tidak ditemukan");
-  const respnseUpdate = await database.settings.update({
-    data: {
-      status: result.status,
-    },
-    where: {
-      id: result.id,
-    },
-  });
+  let respnseUpdate = [];
+  for (const d of result) {
+    const isAlreadyExist = await database.settings.findUnique({
+      where: {
+        id: d.id,
+      },
+    });
+    if (!isAlreadyExist) throw new ApiError(400, "id settings tidak ditemukan");
+    respnseUpdate.push(await database.settings.update({
+      data: {
+        status: d.status,
+      },
+      where: {
+        id: d.id,
+      },
+    }));
+    
+  }
+
   return new Response(
     200,
     "Berhasil menyimpan Settings",

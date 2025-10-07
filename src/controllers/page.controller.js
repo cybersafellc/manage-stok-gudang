@@ -74,6 +74,7 @@ async function getById(req, res, next) {
     const response = await pageService.getById({
       material_id: await req.params.id,
       ip_address: await req.clientIp,
+      id: await req.id,
     });
     res.status(response.status).render(response.refrence, response);
   } catch (error) {

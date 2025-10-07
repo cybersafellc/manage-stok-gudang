@@ -137,8 +137,15 @@
                     <div class="row">
                       <!-- Detail Barang -->
                       <div class="col-md-12">
-                  
-                 
+                   <%if(!data?.user){%>
+                  <div class="form-group ">
+                    <label for="jumlah_stok_fisik_edit">Login Diperlukan untuk mengupdate stok fisik dan lokasi material</label>
+                    
+                  </div>
+                  <a class="btn btn-danger" href="/login?redirect=<%= data.path %>">Login</a>
+                 <% }%>
+                
+                  <%if(data?.user){%>
                   <div class="form-group ">
                     <label for="jumlah_stok_fisik_edit">Jumlah Stok Fisik</label>
                     <div class="d-flex justify-content-start">
@@ -166,6 +173,8 @@
                   <div class="form-group">
                     <button class="btn btn-danger float-right" type="submit">Simpan</button>
                   </div>
+                 <% }%>
+                  
                     </div class="form-group p-3">
                     
                     </div>
@@ -174,7 +183,7 @@
                 </div>
               </div>
             </div>
-          </div>
+            </div>
           <!-- /.container-fluid -->
         </div>
           </form>

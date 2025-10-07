@@ -1,0 +1,2 @@
+{"level":"error","message":"\nInvalid `prisma.materials.delete()` invocation:\n\n\nForeign key constraint violated on the fields: (`materials_id`)","target":"materials.delete","timestamp":"2025-10-03T04:00:35.786Z"}
+{"level":"error","message":"\nInvalid `prisma.materials.delete()` invocation:\n\n\nForeign key constraint violated on the fields: (`materials_id`)","timestamp":"2025-10-03T04:00:35.790Z"}

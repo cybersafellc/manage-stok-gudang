@@ -5,9 +5,13 @@ const addSettings = Joi.object({
   status: Joi.boolean().required(),
 }).required();
 
-const editSettings = Joi.object({
-  id: Joi.string().required(),
-  status: Joi.boolean().required(),
-}).required();
+const editSettings = Joi.array()
+  .items(
+    Joi.object({
+      id: Joi.string().required(),
+      status: Joi.boolean().required(),
+    })
+  )
+  .required();
 
 export default { addSettings, editSettings };

@@ -36,6 +36,10 @@ page.get(
 );
 
 // public pages
-page.get("/materials/:id", pageController.getById);
+page.get(
+  "/materials/:id",
+  authMiddleware.allRolePagesOptional,
+  pageController.getById
+);
 
 export default page;

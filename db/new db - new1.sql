@@ -99,3 +99,4 @@ ALTER TABLE `audit_trails` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 -- this is insert default data
 
 INSERT INTO `settings` (`id`, `name`, `status`, `create_at`, `update_at`) VALUES (UUID(), 'Pendaftaran Pengguna/User', 1, NOW(), NOW());
+INSERT INTO `settings` (`id`, `name`, `status`, `create_at`, `update_at`) VALUES (UUID(), 'Pendaftaran Admin', 1, NOW(), NOW());

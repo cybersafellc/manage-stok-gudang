@@ -21,7 +21,19 @@ async function register() {
       403,
       "Pendaftaran pengguna ditutup, silahkan hubungi admin"
     );
-  return new Response(200, "Monitoring Stok Gudang", null, "register", false);
+
+  const admin_allow_register = await database.settings.findFirst({
+    where: {
+      name: "Pendaftaran Admin",
+    },
+  });
+  return new Response(
+    200,
+    "Monitoring Stok Gudang",
+    { admin_allow_register },
+    "register",
+    false
+  );
 }
 
 async function dashboard(request) {
@@ -154,6 +166,15 @@ async function getById(request) {
   console.log(request);
   const result = await validation(pageValidation.getById, request);
 
+  let user;
+  if (result?.id) {
+    user = await database.users.findUnique({
+      where: {
+        id: result.id,
+      },
+    });
+  }
+
   const material = await database.materials.findUnique({
     where: {
       id: result.material_id,
@@ -173,7 +194,13 @@ async function getById(request) {
       materials_id: result.material_id,
     },
   });
-  return new Response(200, "Materials", { material }, "materials_id", false);
+  return new Response(
+    200,
+    "Materials",
+    { material, user, path: `/materials/${material.id}` },
+    "materials_id",
+    false
+  );
 }
 
 async function importShp(request) {

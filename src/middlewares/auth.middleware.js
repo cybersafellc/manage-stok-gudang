@@ -126,4 +126,31 @@ async function adminRolePages(req, res, next) {
   }
 }
 
-export default { allRoleApi, allRolePages, adminRoleApi, adminRolePages };
+// non  required
+async function allRolePagesOptional(req, res, next) {
+  try {
+    const access_token =
+      (await req.headers["authorization"]?.split(" ")[1]) ||
+      req.cookies["access_token"];
+    const decode = await Jwt.verify(
+      access_token,
+      process.env.AUTH_TOKEN,
+      function (err, decode) {
+        return decode;
+      }
+    );
+    req.id = await decode?.id;
+    req.role = await decode?.role;
+    next();
+  } catch (error) {
+    next(error);
+  }
+}
+
+export default {
+  allRoleApi,
+  allRolePages,
+  adminRoleApi,
+  adminRolePages,
+  allRolePagesOptional,
+};

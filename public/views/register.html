@@ -130,7 +130,9 @@
                       >
                         <option>Pilih Role</option>
                         <option value="user">User</option>
+                        <%if(data.admin_allow_register.status){%>
                         <option value="admin">Admin</option>
+                        <% }%>
                       </select>
                     </div>
                   </div>

@@ -27,6 +27,7 @@ const materials = Joi.object({
 const getById = Joi.object({
   material_id: Joi.string().required(),
   ip_address: Joi.string().required(),
+  id: Joi.string().optional(),
 });
 
 const importShp = Joi.object({

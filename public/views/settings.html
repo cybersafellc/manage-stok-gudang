@@ -66,7 +66,7 @@
                     <form id="simpan-settings">
                       <tbody>
                         <!-- Contoh Data Dummy -->
-                        <% data.settings.forEach(e => {%>
+                        <% let countah = 1 %> <% data.settings.forEach(e => {%>
                         <tr>
                           <td><%= e.name %></td>
                           <td><%= e.status ? "Aktif" : "Tidak Aktif" %></td>
@@ -75,15 +75,15 @@
                               <input
                                 value="<%= e.id %>"
                                 class="d-none"
-                                id="id"
-                                name="id"
+                                id="id<%=countah%>"
+                                name="id<%=countah%>"
                               />
                             </div>
                             <select
                               class="form-control"
                               style="width: 150px"
-                              id="pendaftaran"
-                              name="pendaftaran"
+                              id="pendaftaran<%=countah%>"
+                              name="pendaftaran<%=countah%>"
                             >
                               <% if(e.status){ %>
                               <option value="true">On</option>
@@ -95,7 +95,7 @@
                             </select>
                           </td>
                         </tr>
-                        <% }); %>
+                        <% countah++%> <% }); %>
                         <tr>
                           <td colspan="3">
                             <button type="submit" class="btn btn-danger">
@@ -200,12 +200,16 @@
         async function saved(e) {
           e.preventDefault();
           try {
-            const data = {
-              status: e.target.pendaftaran.value,
-              id: e.target.id.value,
-            };
-            for (key in data) {
-              if (!data[key]) throw new Error("Data tidak lengkap!");
+            const datas = [];
+            for (let i = 0; i < `<%= data.settings.length%>`; i++) {
+              datas.push({
+                status: e.target[`pendaftaran${i + 1}`].value,
+                id: e.target[`id${i + 1}`].value,
+              });
+            }
+            console.log(datas);
+            for (key in datas) {
+              if (!datas[key]) throw new Error("Data tidak lengkap!");
             }
             alertify.confirm(
               "Konfirmasi Simpan Settings",
@@ -218,7 +222,7 @@
                       "Content-Type": "application/json",
                       Accept: "application/json",
                     },
-                    body: JSON.stringify(data),
+                    body: JSON.stringify(datas),
                   });
                   const resJson = await response.json();
                   if (resJson.error) throw new Error(resJson.message);
