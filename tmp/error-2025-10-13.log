@@ -1,0 +1,7 @@
+{"level":"error","message":"\nInvalid `prisma.users.create()` invocation:\n\n\nUnique constraint failed on the constraint: `sap_id`","target":"users.create","timestamp":"2025-10-13T01:04:10.976Z"}
+{"level":"error","message":"\nInvalid `prisma.users.create()` invocation:\n\n\nUnique constraint failed on the constraint: `sap_id`","timestamp":"2025-10-13T01:04:10.979Z"}
+{"level":"error","message":"Cannot read properties of null (reading 'replace')","timestamp":"2025-10-13T03:30:35.407Z"}
+{"level":"error","message":"Cannot read properties of null (reading 'replace')","timestamp":"2025-10-13T03:31:13.789Z"}
+{"level":"error","message":"Cannot read properties of null (reading 'replace')","timestamp":"2025-10-13T03:34:40.272Z"}
+{"level":"error","message":"Cannot read properties of null (reading 'replace')","timestamp":"2025-10-13T03:38:45.588Z"}
+{"level":"error","message":"Cannot read properties of null (reading 'replace')","timestamp":"2025-10-13T03:40:30.565Z"}

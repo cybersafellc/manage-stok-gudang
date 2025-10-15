@@ -53,6 +53,13 @@ async function create(request) {
       user_id: result.user_id,
     },
   });
+  // set 0 all sap jumlah
+  await database.materials.updateMany({
+    data: {
+      jumlah: 0,
+    },
+  });
+  //
   for (const material of data) {
     let jumlahStr = material["Jumlah SAP"];
     let jumlahFloat = parseFloat(jumlahStr.replace(/,/g, ""));
