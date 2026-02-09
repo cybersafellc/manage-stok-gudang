@@ -36,4 +36,13 @@ async function publicUpdate(req, res, next) {
   }
 }
 
-export default { create, deletes, update, publicUpdate };
+async function qrUpdate(req, res, next) {
+  try {
+    const response = await materialsService.qrUpdate();
+    res.status(response.status).json(response).end();
+  } catch (error) {
+    next(error);
+  }
+}
+
+export default { create, deletes, update, publicUpdate, qrUpdate };

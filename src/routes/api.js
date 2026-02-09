@@ -61,5 +61,10 @@ api.post(
   multers,
   shpController.create
 );
+api.put(
+  "/materials/qr",
+  authMiddleware.adminRoleApi,
+  materialsController.qrUpdate
+);
 
 export default api;

@@ -6,6 +6,7 @@ import QRCode from "qrcode";
 import path from "path";
 import { logger } from "../app/logging.js";
 import { Response } from "../class/response.js";
+import fs from "fs/promises";
 
 async function create(request) {
   const result = await validation(materialsValidation.create, request);
@@ -184,4 +185,26 @@ async function publicUpdate(request) {
   );
 }
 
-export default { create, deletes, update, publicUpdate };
+async function qrUpdate() {
+  const materials = await database.materials.findMany();
+  for (const material of materials) {
+    const barcodePath = `public/assets/img/qr/${material.id}.png`;
+    await fs.unlink(barcodePath);
+    QRCode.toFile(
+      path.join(barcodePath),
+      `${process.env.HOST}/materials/${material.id}`,
+      {
+        width: 300,
+        margin: 2,
+        errorCorrectionLevel: "H",
+      },
+      function (err) {
+        if (err) logger.error(err);
+        else logger.info("QR dibuat: " + barcodePath);
+      }
+    );
+  }
+  return new Response(200, "berhasil mengupdate qr code", null, null, false);
+}
+
+export default { create, deletes, update, publicUpdate, qrUpdate };

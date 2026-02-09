@@ -148,9 +148,9 @@ async function allRolePagesOptional(req, res, next) {
 }
 
 export default {
-  allRoleApi,
+  allRoleApi, // 1
   allRolePages,
-  adminRoleApi,
+  adminRoleApi, // 1
   adminRolePages,
   allRolePagesOptional,
 };
