@@ -21,8 +21,8 @@ async function create(request) {
     throw new ApiError(
       400,
       `Terdeteksi Duplikat ID Material / Kode Material : ${duplicateCheck.join(
-        ","
-      )}`
+        ",",
+      )}`,
     );
   // check valid data on database
   let invalid = [];
@@ -42,8 +42,8 @@ async function create(request) {
     throw new ApiError(
       400,
       `Beberapa ID Material / Kode Material tidak Terdaftar di database :\n${invalid.join(
-        "\n"
-      )}`
+        "\n",
+      )}`,
     );
   // update jumlah materials or execute
   const responseAddHistoryUpload = await database.history_upload.create({
@@ -86,7 +86,7 @@ async function create(request) {
     "berhasil mengupdate jumlah material berdasarkan file SAP",
     responseAddHistoryUpload,
     null,
-    false
+    false,
   );
 }
 

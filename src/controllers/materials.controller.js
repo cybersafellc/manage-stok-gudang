@@ -45,4 +45,20 @@ async function qrUpdate(req, res, next) {
   }
 }
 
-export default { create, deletes, update, publicUpdate, qrUpdate };
+async function genereateMaterialsReport(req, res, next) {
+  try {
+    const response = await materialsService.genereateMaterialsReport();
+    res.status(response.status).json(response).end();
+  } catch (error) {
+    next(error);
+  }
+}
+
+export default {
+  create,
+  deletes,
+  update,
+  publicUpdate,
+  qrUpdate,
+  genereateMaterialsReport,
+};

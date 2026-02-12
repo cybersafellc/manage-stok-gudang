@@ -1,0 +1,4 @@
+{"level":"error","message":"fs.createWriteStream is not a function","timestamp":"2026-02-10T21:42:38.973Z"}
+{"level":"error","message":"switchToPage(0) out of bounds, current buffer covers pages 8 to 8","timestamp":"2026-02-10T21:47:34.034Z"}
+{"level":"error","message":"getRowHeight is not defined","timestamp":"2026-02-10T22:17:05.361Z"}
+{"level":"error","message":"Maximum call stack size exceeded","timestamp":"2026-02-11T04:20:32.016Z"}

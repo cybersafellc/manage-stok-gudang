@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -158,12 +158,12 @@
                 </h6>
                 <div class="float-right">
                   <a
-                    onclick="alert('comming soon')"
+                    onclick="handleDownloadPdf()"
                     href="#"
                     class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"
                   >
-                    <i class="fas fa-download fa-sm text-white-50"></i> Download
-                    Materials Lists
+                    <i class="fas fa-download fa-sm text-white-50"></i>
+                    Download Materials Lists
                   </a>
                   <a
                     href="#"
@@ -222,13 +222,32 @@
                         <td>
                           <button
                             class="btn btn-warning"
-                            onclick="edit('<%=e.id%>','<%=e.category.id%>' ,'<%=e.category.name%>' ,'<%=e.material_id%>', '<%=e.valuation_class.id%>','<%=e.valuation_class.valuation_description%>', '<%=e.material_description%>', '<%=e.jumlah%>', '<%=e.jumlah_stok_fisik%>', '<%=e.satuan%>', '<%=e.location%>')"
+                            onclick="
+                              edit(
+                                '<%=e.id%>',
+                                '<%=e.category.id%>',
+                                '<%=e.category.name%>',
+                                '<%=e.material_id%>',
+                                '<%=e.valuation_class.id%>',
+                                '<%=e.valuation_class.valuation_description%>',
+                                '<%=e.material_description%>',
+                                '<%=e.jumlah%>',
+                                '<%=e.jumlah_stok_fisik%>',
+                                '<%=e.satuan%>',
+                                '<%=e.location%>',
+                              )
+                            "
                           >
                             Edit
                           </button>
                           <button
                             class="btn btn-danger"
-                            onclick="deletes('<%=e.id%>','<%=e.material_description%>')"
+                            onclick="
+                              deletes(
+                                '<%=e.id%>',
+                                '<%=e.material_description%>',
+                              )
+                            "
                           >
                             Hapus
                           </button>
@@ -320,6 +339,22 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
     <script>
+      async function handleDownloadPdf() {
+        try {
+          const response = await fetch(`/api/materials/report`, {
+            method: "get",
+            headers: {
+              Accept: "application/json",
+            },
+          });
+          const resJson = await response.json();
+          if (resJson.error) throw new Error(resJson.message);
+
+          window.location.href = resJson.data.path_download;
+        } catch (error) {
+          alert(error.message);
+        }
+      }
       async function handleChangekategori() {
         try {
           const category_id = $("#category_id").val();
@@ -330,7 +365,7 @@
               headers: {
                 Accept: "application/json",
               },
-            }
+            },
           );
           const resJson = await cateogiryDetails.json();
           if (resJson.error) throw new Error(resJson.message);
@@ -366,7 +401,7 @@
             },
             function () {
               alertify.error("cancel");
-            }
+            },
           );
         } catch (error) {}
       }
@@ -381,7 +416,7 @@
         jumlah,
         jumlah_stok_fisik,
         satuan,
-        location
+        location,
       ) {
         alertify.confirm(
           "Edit Data",
@@ -534,7 +569,7 @@
               material_id: $("#material_id_edit").val(undefined),
               valuation_class_id: $("#kategori_gudang_id_edit").val(undefined),
               material_description: $("#material_description_edit").val(
-                undefined
+                undefined,
               ),
               jumlah: $("#jumlah_edit").val(undefined),
               jumlah_stok_fisik: $("#jumlah_stok_fisik_edit").val(undefined),
@@ -542,7 +577,7 @@
               location: $("#location_edit").val(undefined),
             };
             alertify.error("Cancel");
-          }
+          },
         );
       }
       $(document).ready(function () {

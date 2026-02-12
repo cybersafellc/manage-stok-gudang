@@ -16,7 +16,7 @@ async function register(request) {
   if (isAlready)
     throw new ApiError(
       400,
-      `username ${result.username} sudah terdaftar, silahkan login!`
+      `username ${result.username} sudah terdaftar, silahkan login!`,
     );
   result.id = crypto.randomUUID();
   result.password = await bcrypt.hash(result.password, 10);
@@ -36,7 +36,7 @@ async function register(request) {
     "berhasil register, silahkan login!",
     responseCreate,
     "/login",
-    false
+    false,
   );
 }
 
@@ -56,7 +56,7 @@ async function login(request) {
       process.env.AUTH_TOKEN,
       {
         expiresIn: "8h",
-      }
+      },
     );
     return new Response(200, "berhasil login", { access_token }, null, false);
   } else {

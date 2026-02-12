@@ -20,7 +20,7 @@ async function create(request) {
     "berhasil menambahkan kategori gudang baru",
     responseCreate,
     null,
-    false
+    false,
   );
 }
 
@@ -48,7 +48,7 @@ async function update(request) {
     "berhasil mengupdate kategori gudang",
     responseUpdate,
     null,
-    false
+    false,
   );
 }
 
@@ -72,7 +72,7 @@ async function deletes(request) {
     "berhasil menghapus kategori gudang",
     responseUpdate,
     null,
-    false
+    false,
   );
 }
 

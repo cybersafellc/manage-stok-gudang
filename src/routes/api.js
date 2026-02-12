@@ -19,7 +19,7 @@ api.post("/users/auth", usersController.login);
 api.put(
   "/settings",
   authMiddleware.adminRoleApi,
-  settingsController.editSettings
+  settingsController.editSettings,
 );
 api.post("/kategori", authMiddleware.adminRoleApi, kategoriController.create);
 api.put("/kategori", authMiddleware.adminRoleApi, kategoriController.update);
@@ -27,23 +27,23 @@ api.get("/kategori", authMiddleware.allRoleApi, kategoriController.get);
 api.delete(
   "/kategori",
   authMiddleware.adminRoleApi,
-  kategoriController.deletes
+  kategoriController.deletes,
 );
 
 api.post(
   "/kategori-gudang",
   authMiddleware.adminRoleApi,
-  valuation_classController.create
+  valuation_classController.create,
 );
 api.put(
   "/kategori-gudang",
   authMiddleware.adminRoleApi,
-  valuation_classController.update
+  valuation_classController.update,
 );
 api.delete(
   "/kategori-gudang",
   authMiddleware.adminRoleApi,
-  valuation_classController.deletes
+  valuation_classController.deletes,
 );
 
 api.post("/materials", authMiddleware.allRoleApi, materialsController.create);
@@ -51,20 +51,22 @@ api.put("/materials", authMiddleware.allRoleApi, materialsController.update);
 api.delete(
   "/materials",
   authMiddleware.allRoleApi,
-  materialsController.deletes
+  materialsController.deletes,
 );
 api.put("/materials/public", materialsController.publicUpdate);
+
+api.get("/materials/report", materialsController.genereateMaterialsReport);
 
 api.post(
   "/import-csv-shp",
   authMiddleware.allRoleApi,
   multers,
-  shpController.create
+  shpController.create,
 );
 api.put(
   "/materials/qr",
   authMiddleware.adminRoleApi,
-  materialsController.qrUpdate
+  materialsController.qrUpdate,
 );
 
 export default api;
