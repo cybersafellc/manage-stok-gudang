@@ -8,97 +8,107 @@ generator client {
 }
 
 model users {
-  id         String   @id @db.VarChar(100)
-  username   String   @db.VarChar(255) @unique
-  password   String   @db.VarChar(255)
-  name       String   @db.VarChar(255)
-  sap_id String  @db.VarChar(255) @unique
-  jabatan    String   @db.VarChar(255)
-  role       String   @db.VarChar(255)
-  create_at  DateTime @default(now())
-  update_at  DateTime @updatedAt
+  id        String   @id @db.VarChar(36)
+  username  String   @unique @db.VarChar(50)
+  password  String   @db.VarChar(255)
+  name      String   @db.VarChar(150)
+  sap_id    String   @unique @db.VarChar(50)
+  jabatan   String   @db.VarChar(100)
+  role      String   @db.VarChar(50)
+  create_at DateTime @default(now())
+  update_at DateTime @updatedAt
 
   history_upload history_upload[]
+  audit_trails   audit_trails[]
 }
 
 model category {
-  id        String     @id @db.VarChar(100)
-  name      String     @db.VarChar(255) @unique
-  category_id      String     @db.VarChar(25) @unique
-  create_at DateTime   @default(now())
-  update_at DateTime   @updatedAt
+  id          String   @id @db.VarChar(36)
+  name        String   @unique @db.VarChar(150)
+  category_id String   @unique @db.VarChar(50)
+  create_at   DateTime @default(now())
+  update_at   DateTime @updatedAt
 
   materials materials[]
 }
 
 model valuation_class {
-  id String @id @db.VarChar(100) 
-  valuation_class_id String @db.VarChar(100) @unique
-  valuation_description String @db.VarChar(255)
-  create_at DateTime   @default(now())
-  update_at DateTime   @updatedAt 
+  id                     String   @id @db.VarChar(36)
+  valuation_class_id     String   @unique @db.VarChar(50)
+  valuation_description  String   @db.VarChar(200)
+  create_at              DateTime @default(now())
+  update_at              DateTime @updatedAt
 
   materials materials[]
 }
 
 model materials {
-  id                  String   @id @db.VarChar(100)
-  category_id         String   @db.VarChar(100)
-  valuation_class_id         String   @db.VarChar(100)
-  material_id         String      @unique
-  material_description String  @db.Text
-  satuan              String   @db.VarChar(75)
-  jumlah              Float
-  jumlah_stok_fisik              Float
-  location String @db.VarChar(255)
-  barcode             String   @db.Text
-  create_at           DateTime @default(now())
-  update_at           DateTime @updatedAt
+  id                     String   @id @db.VarChar(36)
+  category_id            String   @db.VarChar(36)
+  valuation_class_id     String   @db.VarChar(36)
+  material_id            String   @unique @db.VarChar(50)
+  material_description   String   @db.Text
+  satuan                 String   @db.VarChar(50)
+  jumlah                 Float
+  jumlah_stok_fisik      Float
+  location               String   @db.VarChar(150)
+  barcode                String   @db.VarChar(100)
+  create_at              DateTime @default(now())
+  update_at              DateTime @updatedAt
 
-  category category @relation(fields: [category_id], references: [id])
+  category        category        @relation(fields: [category_id], references: [id])
   valuation_class valuation_class @relation(fields: [valuation_class_id], references: [id])
-  details_upload details_upload[]
-  scan_history scan_history[]
+  details_upload  details_upload[]
+  scan_history    scan_history[]
 }
 
 model history_upload {
-  id         String   @id @db.VarChar(100)
+  id         String   @id @db.VarChar(36)
   keterangan String   @db.Text
-  user_id    String   @db.VarChar(100)
+  user_id    String   @db.VarChar(36)
   create_at  DateTime @default(now())
   update_at  DateTime @updatedAt
 
-  user users @relation(fields: [user_id], references: [id])
+  user           users           @relation(fields: [user_id], references: [id])
   details_upload details_upload[]
 }
 
 model details_upload {
-  id               String   @id @db.VarChar(100)
-  history_upload_id String  @db.VarChar(100)
-  materials_id     String   @db.VarChar(100)
-  jumlah           Float
-  create_at        DateTime @default(now())
-  update_at        DateTime @updatedAt
+  id                String   @id @db.VarChar(36)
+  history_upload_id String   @db.VarChar(36)
+  materials_id      String   @db.VarChar(36)
+  jumlah            Float
+  create_at         DateTime @default(now())
+  update_at         DateTime @updatedAt
 
-  materials materials @relation(fields: [materials_id], references: [id])
+  materials      materials      @relation(fields: [materials_id], references: [id])
   history_upload history_upload @relation(fields: [history_upload_id], references: [id])
 }
 
 model settings {
-  id        String   @id @db.VarChar(100)
-  name      String   @db.Text
+  id        String   @id @db.VarChar(36)
+  name      String   @unique @db.VarChar(100)
   status    Boolean
   create_at DateTime @default(now())
   update_at DateTime @updatedAt
 }
 
 model scan_history {
-  id         String   @id @db.VarChar(100)
-  ip_address String   @db.VarChar(255)
-  materials_id String @db.VarChar(100)
-  create_at  DateTime @default(now())
-  update_at  DateTime @updatedAt
+  id           String   @id @db.VarChar(36)
+  ip_address   String   @db.VarChar(45)
+  materials_id String   @db.VarChar(36)
+  create_at    DateTime @default(now())
+  update_at    DateTime @updatedAt
 
   materials materials @relation(fields: [materials_id], references: [id])
 }
 
+model audit_trails {
+  id               String   @id @db.VarChar(36)
+  user_id          String   @db.VarChar(36)
+  details_activity String   @db.Text
+  create_at        DateTime @default(now())
+  update_at        DateTime @updatedAt
+
+  user users @relation(fields: [user_id], references: [id])
+}

@@ -229,11 +229,17 @@ async function genereateMaterialsReport() {
   doc.pipe(createWriteStream("public/assets" + filesLocation));
 
   /* ================= HEADER ================= */
-  doc.font("Helvetica-Bold").fontSize(14).text("PT Aneka Inti Persada\nPinang Sebatang Estate\n");
+  doc
+    .font("Helvetica-Bold")
+    .fontSize(14)
+    .text("PT Aneka Inti Persada\nPinang Sebatang Estate\n");
   doc.fontSize(18).text("LAPORAN DATA MATERIAL\n", { align: "center" });
-  doc.font("Helvetica").fontSize(10).text("Periode: Januari 2026", {
-    align: "center",
-  });
+  doc
+    .font("Helvetica")
+    .fontSize(10)
+    .text("Periode: " + new Date().getFullYear(), {
+      align: "center",
+    });
 
   doc.moveDown(0.8);
   doc

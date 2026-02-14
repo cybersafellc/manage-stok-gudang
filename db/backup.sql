@@ -23,15 +23,18 @@ DROP TABLE IF EXISTS `audit_trails`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `audit_trails` (
-  `id` varchar(100) NOT NULL,
-  `user_id` varchar(100) DEFAULT NULL,
+  `id` varchar(36) NOT NULL,
+  `user_id` varchar(36) DEFAULT NULL,
   `details_activity` text,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `audit_trails_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `audit_trails_ibfk_1`
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB 
+DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,15 +54,17 @@ DROP TABLE IF EXISTS `category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
-  `id` varchar(100) NOT NULL,
-  `category_id` varchar(25) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `id` varchar(36) NOT NULL,
+  `category_id` varchar(50) DEFAULT NULL,
+  `name` varchar(150) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `category_id` (`category_id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB 
+DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,18 +85,22 @@ DROP TABLE IF EXISTS `details_upload`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `details_upload` (
-  `id` varchar(100) NOT NULL,
-  `history_upload_id` varchar(100) DEFAULT NULL,
-  `materials_id` varchar(100) DEFAULT NULL,
+  `id` varchar(36) NOT NULL,
+  `history_upload_id` varchar(36) DEFAULT NULL,
+  `materials_id` varchar(36) DEFAULT NULL,
   `jumlah` float DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `materials_id` (`materials_id`),
   KEY `history_upload_id` (`history_upload_id`),
-  CONSTRAINT `details_upload_ibfk_1` FOREIGN KEY (`materials_id`) REFERENCES `materials` (`id`),
-  CONSTRAINT `details_upload_ibfk_2` FOREIGN KEY (`history_upload_id`) REFERENCES `history_upload` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `details_upload_ibfk_1`
+    FOREIGN KEY (`materials_id`) REFERENCES `materials` (`id`),
+  CONSTRAINT `details_upload_ibfk_2`
+    FOREIGN KEY (`history_upload_id`) REFERENCES `history_upload` (`id`)
+) ENGINE=InnoDB 
+DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,15 +121,18 @@ DROP TABLE IF EXISTS `history_upload`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `history_upload` (
-  `id` varchar(100) NOT NULL,
+  `id` varchar(36) NOT NULL,
   `keterangan` text,
-  `user_id` varchar(100) DEFAULT NULL,
+  `user_id` varchar(36) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `history_upload_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `history_upload_ibfk_1`
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB 
+DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,24 +153,28 @@ DROP TABLE IF EXISTS `materials`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `materials` (
-  `id` varchar(100) NOT NULL,
-  `valuation_class_id` varchar(100) DEFAULT NULL,
-  `category_id` varchar(100) DEFAULT NULL,
-  `material_id` varchar(25) DEFAULT NULL,
+  `id` varchar(36) NOT NULL,
+  `valuation_class_id` varchar(36) DEFAULT NULL,
+  `category_id` varchar(36) DEFAULT NULL,
+  `material_id` varchar(50) DEFAULT NULL,
   `material_description` text,
-  `satuan` varchar(75) DEFAULT NULL,
+  `satuan` varchar(50) DEFAULT NULL,
   `jumlah` float DEFAULT NULL,
   `jumlah_stok_fisik` float DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL,
-  `barcode` text,
+  `location` varchar(150) DEFAULT NULL,
+  `barcode` varchar(100) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   KEY `valuation_class_id` (`valuation_class_id`),
-  CONSTRAINT `materials_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
-  CONSTRAINT `materials_ibfk_2` FOREIGN KEY (`valuation_class_id`) REFERENCES `valuation_class` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `materials_ibfk_1`
+    FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  CONSTRAINT `materials_ibfk_2`
+    FOREIGN KEY (`valuation_class_id`) REFERENCES `valuation_class` (`id`)
+) ENGINE=InnoDB 
+DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -179,15 +195,18 @@ DROP TABLE IF EXISTS `scan_history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `scan_history` (
-  `id` varchar(100) NOT NULL,
-  `ip_address` varchar(255) DEFAULT NULL,
-  `materials_id` varchar(100) DEFAULT NULL,
+  `id` varchar(36) NOT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `materials_id` varchar(36) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `materials_id` (`materials_id`),
-  CONSTRAINT `scan_history_ibfk_1` FOREIGN KEY (`materials_id`) REFERENCES `materials` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `scan_history_ibfk_1`
+    FOREIGN KEY (`materials_id`) REFERENCES `materials` (`id`)
+) ENGINE=InnoDB 
+DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,14 +227,16 @@ DROP TABLE IF EXISTS `settings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `settings` (
-  `id` varchar(100) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `id` varchar(36) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB 
+DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,19 +257,21 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `id` varchar(100) NOT NULL,
-  `sap_id` varchar(255) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL,
+  `id` varchar(36) NOT NULL,
+  `sap_id` varchar(50) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `jabatan` varchar(255) DEFAULT NULL,
-  `role` varchar(255) DEFAULT NULL,
+  `name` varchar(150) DEFAULT NULL,
+  `jabatan` varchar(100) DEFAULT NULL,
+  `role` varchar(50) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `sap_id` (`sap_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB 
+DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -269,14 +292,16 @@ DROP TABLE IF EXISTS `valuation_class`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `valuation_class` (
-  `id` varchar(100) NOT NULL,
-  `valuation_class_id` varchar(100) DEFAULT NULL,
-  `valuation_description` varchar(255) DEFAULT NULL,
+  `id` varchar(36) NOT NULL,
+  `valuation_class_id` varchar(50) DEFAULT NULL,
+  `valuation_description` varchar(200) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `valuation_class_id` (`valuation_class_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB 
+DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
